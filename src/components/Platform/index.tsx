@@ -2,7 +2,7 @@ import { useMemo } from "react"
 import { useMediaQuery } from "../../utils/useMediaQuery"
 import { Vector3 } from "@react-three/fiber"
 import AboutPlatform from "../AboutPlatform"
-// import ContactPlatform from "../ContactPlatform"
+import ContactPlatform from "../ContactPlatform"
 import HomePlatform from "../HomePlatform"
 import Floor from "../Floor"
 import MobileBubble from "../MobileBubble"
@@ -22,8 +22,8 @@ function Platform({ title, ...props }: PlatformProps) {
         return SkillsPlatform
       case '/work':
         return WorkPlatform
-      // case '/contact':
-      //   return ContactPlatform
+      case '/contact':
+        return ContactPlatform
       default:
         return (props: Partial<PlatformProps>) => (
           <group {...props}>
