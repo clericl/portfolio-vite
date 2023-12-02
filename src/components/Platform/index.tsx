@@ -7,7 +7,7 @@ import HomePlatform from "../HomePlatform"
 import Floor from "../Floor"
 import MobileBubble from "../MobileBubble"
 import SkillsPlatform from "../SkillsPlatform"
-// import WorkPlatform from "../WorkPlatform"
+import WorkPlatform from "../WorkPlatform"
 
 function Platform({ title, ...props }: PlatformProps) {
   const isDesktop = useMediaQuery('(min-width:768px)')
@@ -20,8 +20,8 @@ function Platform({ title, ...props }: PlatformProps) {
         return AboutPlatform
       case '/skills':
         return SkillsPlatform
-      // case '/work':
-      //   return WorkPlatform
+      case '/work':
+        return WorkPlatform
       // case '/contact':
       //   return ContactPlatform
       default:

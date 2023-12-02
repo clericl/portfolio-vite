@@ -49,13 +49,9 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
     })
   }, [api])
 
-  const getLockoutStatus = useCallback(() => {
-    return lockoutRef.current
-  }, [])
+  const getLockoutStatus = useCallback(() => lockoutRef.current, [])
 
-  const getSeason = useCallback(() => {
-    return seasonRef.current
-  }, [])
+  const getSeason = useCallback(() => seasonRef.current, [])
 
   const setSeason = useCallback((newSeason: Season) => {
     lockoutRef.current = true
