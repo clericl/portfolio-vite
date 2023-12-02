@@ -6,7 +6,7 @@ import AboutPlatform from "../AboutPlatform"
 import HomePlatform from "../HomePlatform"
 import Floor from "../Floor"
 import MobileBubble from "../MobileBubble"
-// import SkillsPlatform from "../SkillsPlatform"
+import SkillsPlatform from "../SkillsPlatform"
 // import WorkPlatform from "../WorkPlatform"
 
 function Platform({ title, ...props }: PlatformProps) {
@@ -18,8 +18,8 @@ function Platform({ title, ...props }: PlatformProps) {
         return HomePlatform
       case '/about':
         return AboutPlatform
-      // case '/skills':
-      //   return SkillsPlatform
+      case '/skills':
+        return SkillsPlatform
       // case '/work':
       //   return WorkPlatform
       // case '/contact':

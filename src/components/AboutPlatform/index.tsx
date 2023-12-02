@@ -33,12 +33,14 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
 
   const [springs, api] = useSpring(() => ({ x: 1, y: 1, z: 1 }))
 
-  const animateSeasonOpening = useCallback(() => {
+  const resetSeasonGroups = useCallback(() => {
     seasonGroups.forEach((ref) => ref.current.visible = false)
+  }, [])
+
+  const animateSeasonOpening = useCallback(() => {
+    resetSeasonGroups()
     seasonGroups[seasonRef.current].current.visible = true
     lockoutRef.current = false
-
-    console.log(seasonGroups)
 
     api.start({
       x: 1,
@@ -95,6 +97,7 @@ function AboutPlatform({ position }: Partial<PlatformProps>) {
         x: 0,
         y: 0,
         z: 0,
+        onRest: resetSeasonGroups,
       })
     } else {
       animateSeasonOpening()

@@ -111,7 +111,7 @@ function MultiCat({ catHome, ...otherProps }: MultiCatProps) {
       }
     } else if (catHome === '/skills') {
       nextAction = actions['Arm_Cat|Swim_Idle']
-      timeScale = TIME_SCALE / 1.5
+      timeScale = TIME_SCALE / 2
     } else if (catHome === '/work') {
       if (!e) {
         nextAction = actions['Arm_Cat|Lie_side_start']
