@@ -5,10 +5,10 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tsPlugin from '@typescript-eslint/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
 
-module.exports = [
+export default [
   {
-    files: ['**/*.{js,jsx,ts,tsx,cjs,mjs}'],
-    ignores: ['dist/**'],
+    files: ['./src/**/*.{js,jsx,ts,tsx,cjs,mjs}'],
+    ignores: ['**/node_modules/*'],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -27,16 +27,15 @@ module.exports = [
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      'typescript-eslint': tsPlugin,
+      '@typescript-eslint': tsPlugin,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      ...reactRefresh.configs.recommended.rules,
-      ...tsPlugin.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
+      ...tsPlugin.configs.recommended.rules,
     },
   },
 ]

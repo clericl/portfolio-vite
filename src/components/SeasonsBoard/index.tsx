@@ -1,8 +1,7 @@
 // @ts-nocheck
 
-import { useMemo, useState } from "react"
+import { useCallback, useMemo, useRef } from "react"
 import { useSpring } from "@react-spring/three"
-import { useCursor } from "@react-three/drei"
 import { Color } from "three"
 import { Season } from "../../utils/constants"
 import useNeonMaterial from "../../utils/useNeonMaterial"
@@ -11,9 +10,15 @@ import MessageBoard from "../MessageBoard"
 const MESSAGE = "I'm Eric, a full stack\nweb developer specializing\nin 3D and augmented reality\nexperiences."
 
 function SeasonsBoard({ open = true, switchSeasons, ...props }: SeasonsBoardProps) {
-  const [hovered, set] = useState(false)
   const neonMaterial = useNeonMaterial('#021040')
-  useCursor(hovered)
+
+  const setHover = useCallback((newState: boolean) => {
+    if (newState) {
+      document.body.classList.add('hovering')
+    } else {
+      document.body.classList.remove('hovering')
+    }
+  }, [])
 
   const [springMat, summerMat, autumnMat, winterMat] = useMemo(() => {
     const spring = neonMaterial.clone()
@@ -80,8 +85,8 @@ function SeasonsBoard({ open = true, switchSeasons, ...props }: SeasonsBoardProp
         onClick: () => switchSeasons(),
       }}
       open={open}
-      onPointerOver={() => set(true)}
-      onPointerOut={() => set(false)}
+      onPointerOver={() => setHover(true)}
+      onPointerOut={() => setHover(false)}
       {...props}
     >
       {MESSAGE}

@@ -1,9 +1,8 @@
-import { useEffect, useMemo, useRef } from "react"
+import { useMemo, useRef } from "react"
 import { CylinderGeometry, Color, Group } from "three"
 import { PARTICLE_CLOUD_COUNT, PARTICLE_CLOUD_RADIUS } from "../../utils/constants"
 import { Instances } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
-import { useSpring, animated } from "@react-spring/three"
 import ParticleInstance from "../ParticleInstance"
 import useNeonMaterial from "../../utils/useNeonMaterial"
 
@@ -73,33 +72,26 @@ function SummerLights({ count = PARTICLE_CLOUD_COUNT }: SummerLightsProps) {
   })
 
   return (
-    <animated.group
+    <group
       ref={groupRef}
       position-y={PARTICLE_CLOUD_RADIUS / 4}
-      visible={false}
     >
-      {/* 
-      // @ts-ignore */}
       <Instances castShadow material={matRed} geometry={lightGeometry}>
         {data1.map((props, i) => (
           <ParticleInstance key={i} {...props} />
         ))}
       </Instances>
-      {/* 
-      // @ts-ignore */}
       <Instances castShadow material={matWhite} geometry={lightGeometry}>
         {data2.map((props, i) => (
           <ParticleInstance key={i} {...props} />
         ))}
       </Instances>
-      {/* 
-      // @ts-ignore */}
       <Instances castShadow material={matBlue} geometry={lightGeometry}>
         {data3.map((props, i) => (
           <ParticleInstance key={i} {...props} />
         ))}
       </Instances>
-    </animated.group>
+    </group>
   )
 }
 

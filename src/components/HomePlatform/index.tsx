@@ -10,6 +10,7 @@ import Cat from "../Cat"
 import useIridescentMaterial from "../../utils/useIridescentMaterial"
 import { useMediaQuery } from "../../utils/useMediaQuery"
 import Divider from "../Divider"
+import MultiCat from "../MultiCat"
 
 function HomePlatform({ position }: Partial<PlatformProps>) {
   const boxRef = useRef<Mesh>(null!)
@@ -89,12 +90,13 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
           WEB DEVELOPER
         </Text3D>
       </Center>
-      {pathname === '/' && isDesktop && (
-        <Cat
-          position={[7.6, 0.1, 2.5]}
+      {isDesktop && (
+        <MultiCat
+          position={[7.6, 0.2, 2.5]}
           scale={[2.1, 2.1, 2.1]}
           rotation-y={-Math.PI / 8 * 6.5}
           castShadow
+          catHome="/"
         />
       )}
       {isDesktop ? (

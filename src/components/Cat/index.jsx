@@ -10,11 +10,13 @@ import CatPath from '../../assets/models/cat.glb'
 
 const TIME_SCALE = 3
 
-export default function Cat(props) {
+function Cat(props) {
   const { nodes, materials, animations } = useGLTF(CatPath)
   const { ref, actions, mixer, names } = useAnimations(animations)
   const { pathname } = useLocation()
   const idleCount = useRef(0)
+
+  const type = props.type
 
   const material = useMemo(() => {
     const mat = materials.material
@@ -29,7 +31,7 @@ export default function Cat(props) {
     let timeScale = TIME_SCALE
     const dieRoll = Math.floor(Math.random() * idleCount.current)
 
-    if (pathname === '/') {
+    if (type === '/') {
       switch (dieRoll) {
         case 1:
         default: {
@@ -64,7 +66,7 @@ export default function Cat(props) {
         }
       }
       nextAction.clampWhenFinished = false
-    } else if (pathname === '/about') {
+    } else if (type === '/about') {
       if (!e) {
         nextAction = actions['Arm_Cat|Lie_belly_start']
         timeScale = TIME_SCALE / 1.5        
@@ -91,10 +93,10 @@ export default function Cat(props) {
         }
       }
       nextAction.clampWhenFinished = true
-    } else if (pathname === '/skills') {
+    } else if (type === '/skills') {
       nextAction = actions['Arm_Cat|Swim_Idle']
       timeScale = TIME_SCALE / 1.5
-    } else if (pathname === '/work') {
+    } else if (type === '/work') {
       if (!e) {
         nextAction = actions['Arm_Cat|Lie_side_start']
         timeScale = TIME_SCALE / 1.5        
@@ -102,7 +104,7 @@ export default function Cat(props) {
         nextAction = actions['Arm_Cat|Lie_side_loop_1']
       }
       nextAction.clampWhenFinished = true
-    } else if (pathname === '/contact') {
+    } else if (type === '/contact') {
       nextAction = actions['Arm_Cat|JumpAir_up']
     } else {
       nextAction = actions['Arm_Cat|Idle_1']
@@ -112,7 +114,7 @@ export default function Cat(props) {
       .setEffectiveTimeScale(timeScale)
       .setLoop(LoopOnce, 1)
       .play()
-  }, [actions, pathname])
+  }, [actions, type])
 
   useEffect(() => {
     mixer.addEventListener('finished', handleNextClip)
@@ -122,7 +124,7 @@ export default function Cat(props) {
   }, [actions, handleNextClip, mixer, names])
 
   return (
-    <group ref={ref} {...props}>
+    <group ref={ref} {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={[4.28, 4.28, 4.28]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group rotation={[-Math.PI / 2, 0, 0]}>
@@ -141,3 +143,5 @@ export default function Cat(props) {
 }
 
 useGLTF.preload(CatPath)
+
+export default Cat

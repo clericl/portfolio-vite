@@ -7,6 +7,7 @@ import {
   STAIRS_PER_ROTATION,
   SPACE_BETWEEN_STAIRS,
 } from "../../utils/constants"
+import Cat from "../Cat"
 import Platform from "../Platform"
 import Stairs from "../Stairs"
 
