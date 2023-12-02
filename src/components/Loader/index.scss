@@ -1,0 +1,50 @@
+@use '../../styles/constants.scss' as *;
+
+.loader {
+  @include flex;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  color: white;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  font-family: $typeface-secondary;
+
+  .loader-title, .loader-subtitle {
+    font-family: $typeface-primary;
+    text-transform: uppercase;
+  }
+  
+  .loader-title {
+    font-size: 6rem;
+    margin-bottom: 1rem;
+    line-height: 0.8;
+  }
+
+  .loader-subtitle {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .loading-text {
+    margin: 2rem 0;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .simple {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+
+    a {
+      color: white;
+    }
+  }
+}

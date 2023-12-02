@@ -1,0 +1,12 @@
+@use '../../styles/constants.scss' as *;
+
+.navigation-link {
+  a {
+    color: $color-white;
+    text-decoration: none;
+
+    &.active, &:hover {
+      text-decoration: underline;
+    }
+  }
+}

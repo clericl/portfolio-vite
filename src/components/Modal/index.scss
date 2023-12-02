@@ -1,0 +1,193 @@
+@use '../../styles/constants.scss' as *;
+
+.modal {
+  @include flex;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: all 0.4s ease-out;
+
+  .modal-contents {
+    @include flex;
+
+    border-radius: 18px;
+    background-color: rgba(68, 68, 68, 0.8);
+    position: relative;
+    padding: 3rem;
+
+    @include media($break-sm) {
+      flex-direction: column;
+      padding: 0;
+      width: 90%;
+
+      &.has-video {
+        min-height: (70vw * 1.85);
+      }
+    }
+  }
+
+  .modal-details {
+    @include flex(column, $align: left, $justify: space-between);
+
+    max-width: 800px;
+    color: white;
+    overflow: hidden;
+    padding: 3rem 2rem;
+    height: 100%;
+    z-index: 2;
+
+    @include media($break-sm) {
+      padding: 1.75rem;
+    }
+  }
+
+  .modal-media {
+    @include flex;
+
+    width: 15vw;
+    padding: 3rem 2rem;
+    z-index: 1;
+
+    video {
+      width: 100%;
+    }
+
+    @include media($break-sm) {
+      position: absolute;
+      width: 70%;
+      opacity: 0.4;
+    }
+  }
+
+  .modal-title {
+    font-family: $typeface-primary;
+    font-weight: bold;
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    line-height: 1;
+    width: 90%;
+
+    @include media($break-sm) {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .body {
+    @include flex(column, $align: left);
+
+    flex: 1;
+    z-index: 2;
+    position: relative;
+  }
+
+  .modal-text, .modal-subheader, .modal-link {
+    font-family: $typeface-secondary;
+    font-size: 1.5rem;
+
+    a {
+      color: aqua;
+    }
+
+    &.skinny {
+      margin: 0;
+    }
+
+    @include media($break-sm) {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+  }
+
+  .modal-subheader {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-link {
+    text-decoration: underline;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .modal-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+  }
+
+  img.modal-banner {
+    object-fit: contain;
+  }
+
+  .modal-link-over-banner {
+    @include flex;
+    
+    position: relative;
+    width: 100%;
+    height: 75px;
+    margin: 1rem 0;
+
+    &.half {
+      width: 40%;
+    }
+  }
+
+  .block {
+    @include flex;
+
+    flex-wrap: wrap;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 5;
+
+    button {
+      @include flex;
+
+      border: 1px solid transparent;
+      background-color: transparent;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      transition: all 0.1s ease-out;
+
+      &:hover {
+        border: 1px solid white;
+        cursor: pointer;
+
+        span {
+          font-size: 2.5rem;
+        }
+      }
+    }
+
+    span {
+      color: white;
+      font-size: 2rem;
+      transition: all 0.1s ease-out;
+    }
+
+    @include media($break-sm) {
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+  }
+}

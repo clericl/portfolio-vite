@@ -1,0 +1,44 @@
+@use '../../styles/constants.scss' as *;
+
+.safari-message {
+  @include flex(column);
+
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  color: white;
+  background-color: black;
+  font-family: $typeface-secondary;
+
+  .text {
+    text-align: center;
+    width: 80%;
+    font-size: 1.5rem;
+    height: 15vh;
+    margin-bottom: 1rem; 
+  }
+
+  .continue {
+    border: 1px solid white;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: $typeface-primary;
+    text-transform: uppercase;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .simple {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+
+    a {
+      color: white;
+    }
+  }
+}

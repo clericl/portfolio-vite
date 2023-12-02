@@ -1,0 +1,25 @@
+@use '../../styles/constants.scss' as *;
+
+.navigation {
+  position: absolute;
+  top: 5vh;
+  right: 0;
+  color: $color-white;
+  z-index: 5;
+  width: 50%;
+  max-width: 750px;
+  font-size: 1.5rem;
+  font-family: $typeface-secondary;
+
+  @include media($break-sm) {
+    width: 100%;
+    font-size: 1rem;
+    top: 3vh;
+  }
+
+  nav {
+    @include flex($justify: space-evenly);
+    
+    width: 100%;
+  }
+}
