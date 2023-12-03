@@ -103,10 +103,7 @@
   "ior": 1.5,
   "iridescenceMap": null,
   "iridescenceIOR": 1.8,
-  "iridescenceThicknessRange": [
-    485,
-    515
-  ],
+  "iridescenceThicknessRange": [485, 515],
   "iridescenceThicknessMap": null,
   "sheenColor": {
     "isColor": true,

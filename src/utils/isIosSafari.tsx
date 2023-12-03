@@ -5,4 +5,4 @@ function isIosSafari() {
   return iOS && webkit && !ua.match(/CriOS/i);
 }
 
-export default isIosSafari
+export default isIosSafari;

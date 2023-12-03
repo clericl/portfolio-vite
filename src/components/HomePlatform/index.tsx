@@ -1,37 +1,31 @@
-import { useRef } from "react"
-import { useLocation } from "react-router-dom"
-import { useFrame } from "@react-three/fiber"
-import { Box, Center, Text3D } from "@react-three/drei"
-import { Mesh } from "three"
-import { FloorType } from "../../utils/constants"
-import { PlatformProps } from "../Platform"
-import Floor from "../Floor"
-import Cat from "../Cat"
-import useIridescentMaterial from "../../utils/useIridescentMaterial"
-import { useMediaQuery } from "../../utils/useMediaQuery"
-import Divider from "../Divider"
-import MultiCat from "../MultiCat"
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Box, Center, Text3D } from "@react-three/drei";
+import { Mesh } from "three";
+import { FloorType } from "../../utils/constants";
+import { PlatformProps } from "../Platform";
+import Floor from "../Floor";
+import useIridescentMaterial from "../../utils/useIridescentMaterial";
+import { useMediaQuery } from "../../utils/useMediaQuery";
+import Divider from "../Divider";
+import MultiCat from "../MultiCat";
 
 function HomePlatform({ position }: Partial<PlatformProps>) {
-  const boxRef = useRef<Mesh>(null!)
-  const iridescentMaterial = useIridescentMaterial('#a0c6db')
-  const isDesktop = useMediaQuery('(min-width:768px)')
-  const { pathname } = useLocation()
-  
+  const boxRef = useRef<Mesh>(null!);
+  const iridescentMaterial = useIridescentMaterial("#a0c6db");
+  const isDesktop = useMediaQuery("(min-width:768px)");
+
   useFrame((_, delta) => {
     if (boxRef.current) {
-      boxRef.current.rotation.x += delta * 3
-      boxRef.current.rotation.y += delta * 3
-      boxRef.current.rotation.z += delta * 3
+      boxRef.current.rotation.x += delta * 3;
+      boxRef.current.rotation.y += delta * 3;
+      boxRef.current.rotation.z += delta * 3;
     }
-  })
-  
+  });
+
   return (
     <group position={position} position-x={0}>
-      <Center
-        disableY
-        disableZ
-      >
+      <Center disableY disableZ>
         {isDesktop ? (
           <Text3D
             font="/hubballi.json"
@@ -40,7 +34,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
             size={4}
             material={iridescentMaterial}
           >
-            ERIC  LIANG
+            ERIC LIANG
           </Text3D>
         ) : (
           <>
@@ -75,13 +69,8 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
       )}
       <Center disableY disableZ>
         <Text3D
-          // @ts-ignore
           font="/hubballi.json"
-          position={[
-            0,
-            isDesktop ? 4.5 : 1,
-            isDesktop ? -1 : 0
-          ]}
+          position={[0, isDesktop ? 4.5 : 1, isDesktop ? -1 : 0]}
           scale={[1, 1, isDesktop ? 2 : 4]}
           size={isDesktop ? 1.8 : 2.5}
           letterSpacing={-0.1}
@@ -94,7 +83,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
         <MultiCat
           position={[7.6, 0.2, 2.5]}
           scale={[2.1, 2.1, 2.1]}
-          rotation-y={-Math.PI / 8 * 6.5}
+          rotation-y={(-Math.PI / 8) * 6.5}
           castShadow
           catHome="/"
         />
@@ -105,7 +94,7 @@ function HomePlatform({ position }: Partial<PlatformProps>) {
         <Divider position-y={-5} />
       )}
     </group>
-  )
+  );
 }
 
-export default HomePlatform
+export default HomePlatform;

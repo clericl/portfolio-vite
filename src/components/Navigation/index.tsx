@@ -1,6 +1,6 @@
-import NavigationLink from "../NavigationLink"
+import NavigationLink from "../NavigationLink";
 
-import './index.scss'
+import "./index.scss";
 
 function Navigation() {
   return (
@@ -13,7 +13,7 @@ function Navigation() {
         <NavigationLink to="/contact">Contact</NavigationLink>
       </nav>
     </div>
-  )
+  );
 }
 
-export default Navigation
+export default Navigation;

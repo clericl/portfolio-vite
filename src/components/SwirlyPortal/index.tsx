@@ -1,18 +1,22 @@
-import { useRef } from "react"
+import { useRef } from "react";
 import {
   Color,
   ColorRepresentation,
   MultiplyBlending,
   Mesh,
   ShaderMaterial,
-} from "three"
-import { GroupProps, TextureProps, extend, useFrame } from "@react-three/fiber"
-import { Mask, shaderMaterial } from "@react-three/drei"
-import { PORTAL_RADIUS } from "../../utils/constants"
+} from "three";
+import { GroupProps, TextureProps, extend, useFrame } from "@react-three/fiber";
+import { Mask, shaderMaterial } from "@react-three/drei";
+import { PORTAL_RADIUS } from "../../utils/constants";
 
 const PortalMaterial = shaderMaterial(
-  { uTime: 0, uColorStart: new Color('hotpink'), uColorEnd: new Color('white') },
-  /*glsl*/`
+  {
+    uTime: 0,
+    uColorStart: new Color("hotpink"),
+    uColorEnd: new Color("white"),
+  },
+  /*glsl*/ `
   varying vec2 vUv;
   void main() {
     vec4 modelPosition = modelMatrix * vec4(position, 1.0);
@@ -21,7 +25,7 @@ const PortalMaterial = shaderMaterial(
     gl_Position = projectionPosition;
     vUv = uv;
   }`,
-  /*glsl*/`
+  /*glsl*/ `
   uniform float uTime;
   uniform vec3 uColorStart;
   uniform vec3 uColorEnd;
@@ -133,13 +137,13 @@ const PortalMaterial = shaderMaterial(
     #include <tonemapping_fragment>
     #include <encodings_fragment>
   }`,
-)
+);
 
 type PortalMaterialType = ShaderMaterial & {
-  uTime: number
-}
+  uTime: number;
+};
 
-extend({ PortalMaterial })
+extend({ PortalMaterial });
 
 export function PortalMask({
   width = 1,
@@ -148,33 +152,27 @@ export function PortalMask({
   index = 1,
   ...props
 }: PortalMaskProps) {
-  const ref = useRef<Mesh>(null!)
-  
+  const ref = useRef<Mesh>(null!);
+
   return (
     <>
       <Mask colorWrite ref={ref} id={index} {...props}>
         <boxGeometry args={[width, height, depth]} />
       </Mask>
     </>
-  )
+  );
 }
 
-function SwirlyPortal({
-  color = 'white',
-  texture,
-  index = 1,
-  ...props
-}: SwirlyPortalProps) {
-  const portalMaterial = useRef<PortalMaterialType>(null!)
+function SwirlyPortal({ color = "white", ...props }: SwirlyPortalProps) {
+  const portalMaterial = useRef<PortalMaterialType>(null!);
 
-  useFrame((_, delta) => (portalMaterial.current.uTime += (delta * 8)))
+  useFrame((_, delta) => (portalMaterial.current.uTime += delta * 8));
 
   return (
     <group {...props}>
       <mesh>
         <circleGeometry args={[PORTAL_RADIUS * 1.01, 32]} />
-        {/* 
-        // @ts-ignore */}
+        {/* @ts-expect-error three types */}
         <portalMaterial
           ref={portalMaterial}
           blending={MultiplyBlending}
@@ -185,20 +183,20 @@ function SwirlyPortal({
         />
       </mesh>
     </group>
-  )
+  );
 }
 
 interface PortalMaskProps {
-  width?: number
-  height?: number
-  depth?: number
-  index?: number
+  width?: number;
+  height?: number;
+  depth?: number;
+  index?: number;
 }
 
 type SwirlyPortalProps = GroupProps & {
-  color?: ColorRepresentation
-  texture?: TextureProps
-  index?: number
-}
+  color?: ColorRepresentation;
+  texture?: TextureProps;
+  index?: number;
+};
 
-export default SwirlyPortal
+export default SwirlyPortal;

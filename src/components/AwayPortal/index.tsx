@@ -1,14 +1,12 @@
-import { useVideoTexture } from "@react-three/drei"
-import TexturePortal, { TexturePortalProps } from "../TexturePortal"
+import { useVideoTexture } from "@react-three/drei";
+import TexturePortal, { TexturePortalProps } from "../TexturePortal";
 
-import matrix from '../../assets/contact/matrix.mp4'
+import matrix from "../../assets/contact/matrix.mp4";
 
 function AwayPortal(props: TexturePortalProps) {
-  const matrixTex = useVideoTexture(matrix)
+  const matrixTex = useVideoTexture(matrix);
 
-  return (
-    <TexturePortal {...props} videoTex={matrixTex} />
-  )
+  return <TexturePortal {...props} videoTex={matrixTex} />;
 }
 
-export default AwayPortal
+export default AwayPortal;

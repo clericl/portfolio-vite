@@ -1,11 +1,11 @@
-import { Outlet } from 'react-router-dom';
-import Layout from './components/Layout';
-import useScroll from './utils/useScroll';
+import { Outlet } from "react-router-dom";
+import Layout from "./components/Layout";
+import useScroll from "./utils/useScroll";
 
-import './styles/global.scss'
+import "./styles/global.scss";
 
 function App() {
-  useScroll()
+  useScroll();
 
   return (
     <div className="main">
@@ -15,4 +15,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

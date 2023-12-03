@@ -1,4 +1,4 @@
-@use '../../styles/constants.scss' as *;
+@use "../../styles/constants.scss" as *;
 
 .navigation {
   position: absolute;
@@ -19,7 +19,7 @@
 
   nav {
     @include flex($justify: space-evenly);
-    
+
     width: 100%;
   }
 }

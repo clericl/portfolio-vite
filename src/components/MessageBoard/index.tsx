@@ -1,18 +1,16 @@
-// @ts-nocheck
+import { ReactNode, useEffect, useMemo, useRef } from "react";
+import { useSpring, animated } from "@react-spring/three";
+import { Color, Group } from "three";
+import { GroupProps, MeshProps } from "@react-three/fiber";
+import { MeshTransmissionMaterial, Text } from "@react-three/drei";
+import useNeonMaterial from "../../utils/useNeonMaterial";
 
-import { ReactNode, useEffect, useMemo, useRef } from "react"
-import { useSpring, animated } from "@react-spring/three"
-import { Color, Group } from "three"
-import { MeshProps } from "@react-three/fiber"
-import { MeshTransmissionMaterial, Text } from "@react-three/drei"
-import useNeonMaterial from "../../utils/useNeonMaterial"
+import fontFile from "../../assets/fonts/SourceCodePro-Regular.ttf";
 
-import fontFile from '../../assets/fonts/SourceCodePro-Regular.ttf'
-
-const SPHERE_RADIUS = 0.2
-const WIDTH = 19
-const HEIGHT = 8
-const DELAY = 500
+const SPHERE_RADIUS = 0.2;
+const WIDTH = 19;
+const HEIGHT = 8;
+const DELAY = 500;
 
 function MessageBoard({
   children,
@@ -23,89 +21,97 @@ function MessageBoard({
   height = HEIGHT,
   ...props
 }: MessageBoardProps) {
-  const groupRef = useRef<Group>(null!)
-  const neonMaterial = useNeonMaterial('#021040')
+  const groupRef = useRef<Group>(null!);
+  const neonMaterial = useNeonMaterial("#021040");
 
   const [bulbMat, textMat] = useMemo(() => {
-    const bulb = neonMaterial.clone()
-    bulb.color = new Color(1, 1.5, 1.5)
+    const bulb = neonMaterial.clone();
+    bulb.color = new Color(1, 1.5, 1.5);
 
-    const text = neonMaterial.clone()
-    text.emissive = new Color(0.5, 0.5, 0.5)
-    text.color = new Color(1, 1.25, 1.25)
+    const text = neonMaterial.clone();
+    text.emissive = new Color(0.5, 0.5, 0.5);
+    text.color = new Color(1, 1.25, 1.25);
 
-    return [bulb, text]
-  }, [neonMaterial])
-  
-  const [topLeftSpring, topLeftApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
-  const [topRightSpring, topRightApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
-  const [bottomLeftSpring, bottomLeftApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
-  const [bottomRightSpring, bottomRightApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
-  const [paneSpring, paneApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }))
+    return [bulb, text];
+  }, [neonMaterial]);
+
+  const [topLeftSpring, topLeftApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }));
+  const [topRightSpring, topRightApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }));
+  const [bottomLeftSpring, bottomLeftApi] = useSpring(() => ({
+    x: 0,
+    y: 0,
+    z: 0,
+  }));
+  const [bottomRightSpring, bottomRightApi] = useSpring(() => ({
+    x: 0,
+    y: 0,
+    z: 0,
+  }));
+  const [paneSpring, paneApi] = useSpring(() => ({ x: 0, y: 0, z: 0 }));
 
   useEffect(() => {
     if (open) {
       topLeftApi.start({
         to: async (next) => {
-          await next({ x: -width / 2, delay: DELAY })
-          await next({ y: height / 2 })
+          await next({ x: -width / 2, delay: DELAY });
+          await next({ y: height / 2 });
         },
-      })
+      });
       topRightApi.start({
         to: async (next) => {
-          await next({ x: width / 2, delay: DELAY })
-          await next({ y: height / 2 })
+          await next({ x: width / 2, delay: DELAY });
+          await next({ y: height / 2 });
         },
-      })
+      });
       bottomLeftApi.start({
         to: async (next) => {
-          await next({ x: -width / 2, delay: DELAY })
-          await next({ y: -height / 2 })
+          await next({ x: -width / 2, delay: DELAY });
+          await next({ y: -height / 2 });
         },
-      })
+      });
       bottomRightApi.start({
         to: async (next) => {
-          await next({ x: width / 2, delay: DELAY })
-          await next({ y: -height / 2 })
+          await next({ x: width / 2, delay: DELAY });
+          await next({ y: -height / 2 });
         },
-      })
+      });
       paneApi.start({
         to: async (next) => {
-          await next({ x: 1, delay: DELAY })
-          await next({ y: 1, z: 1 })
+          await next({ x: 1, delay: DELAY });
+          await next({ y: 1, z: 1 });
         },
-      })
+      });
     } else {
       topLeftApi.start({
         to: async (next) => {
-          await next({ y: 0 })
-          await next({ x: 0 })
-        }
-      })
+          await next({ y: 0 });
+          await next({ x: 0 });
+        },
+      });
       topRightApi.start({
         to: async (next) => {
-          await next({ y: 0 })
-          await next({ x: 0 })
-        }
-      })
+          await next({ y: 0 });
+          await next({ x: 0 });
+        },
+      });
       bottomLeftApi.start({
         to: async (next) => {
-          await next({ y: 0 })
-          await next({ x: 0 })
-        }
-      })
+          await next({ y: 0 });
+          await next({ x: 0 });
+        },
+      });
       bottomRightApi.start({
         to: async (next) => {
-          await next({ y: 0 })
-          await next({ x: 0 })
-        }
-      })
+          await next({ y: 0 });
+          await next({ x: 0 });
+        },
+      });
       paneApi.start({
         to: async (next) => {
-          await next({ x: 0 })
-          await next({ y: 0, z: 0 })
-        }
-      })
+          await next({ x: 0 });
+          await next({ y: 0, z: 0 });
+        },
+      });
     }
   }, [
     topLeftApi,
@@ -116,7 +122,7 @@ function MessageBoard({
     open,
     width,
     height,
-  ])
+  ]);
 
   return (
     <group {...props}>
@@ -164,8 +170,18 @@ function MessageBoard({
         <group {...paneProps}>
           <animated.mesh
             castShadow
-            scale-x={paneSpring.x} scale-y={paneSpring.y} scale-z={paneSpring.z}>
-            <boxGeometry args={[(width - (SPHERE_RADIUS / 2)), (height - (SPHERE_RADIUS / 2)), SPHERE_RADIUS]} />
+            scale-x={paneSpring.x}
+            scale-y={paneSpring.y}
+            scale-z={paneSpring.z}
+          >
+            <boxGeometry
+              args={[
+                width - SPHERE_RADIUS / 2,
+                height - SPHERE_RADIUS / 2,
+                SPHERE_RADIUS,
+              ]}
+            />
+            {/* @ts-expect-error weird material props */}
             <MeshTransmissionMaterial
               samples={16}
               resolution={1028}
@@ -176,7 +192,12 @@ function MessageBoard({
               color="#96b5b4"
             />
           </animated.mesh>
-          <animated.group position-z={0.5} scale-x={paneSpring.x} scale-y={paneSpring.y} scale-z={paneSpring.z}>
+          <animated.group
+            position-z={0.5}
+            scale-x={paneSpring.x}
+            scale-y={paneSpring.y}
+            scale-z={paneSpring.z}
+          >
             <Text
               anchorX="center"
               anchorY="middle"
@@ -192,20 +213,21 @@ function MessageBoard({
         </group>
       </group>
     </group>
-  )
+  );
 }
 
 interface MessageBoardProps {
-  children?: ReactNode
-  open?: boolean
-  width?: number
-  height?: number
+  children?: ReactNode;
+  open?: boolean;
+  width?: number;
+  height?: number;
   bulbProps?: {
-    topLeft?: MeshProps
-    topRight?: MeshProps
-    bottomLeft?: MeshProps
-    bottomRight?: MeshProps
-  }
+    topLeft?: MeshProps;
+    topRight?: MeshProps;
+    bottomLeft?: MeshProps;
+    bottomRight?: MeshProps;
+  };
+  paneProps?: GroupProps;
 }
 
-export default MessageBoard
+export default MessageBoard;

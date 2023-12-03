@@ -1,85 +1,94 @@
-import { useCallback, useEffect, useMemo, useRef } from "react"
-import { useLocation } from "react-router-dom"
-import { useSpring, animated, easings, config } from "@react-spring/three"
-import { DoubleSide, Group } from "three"
-import { PlatformProps } from "../Platform"
-import { PORTAL_RADIUS } from "../../utils/constants"
-import ContactIcons from "../ContactIcons"
-import Floor from "../Floor"
-import HomePortal from "../HomePortal"
-import AwayPortal from "../AwayPortal"
-import MultiCat from "../MultiCat"
-import { GOLD_COLOR, GOLD_EMISSIVE, SUMMON_CIRCLE_RADIUS } from '../../utils/constants'
-import useNeonMaterial from '../../utils/useNeonMaterial'
+import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { useSpring, animated, easings, config } from "@react-spring/three";
+import { DoubleSide, Group } from "three";
+import { PlatformProps } from "../Platform";
+import { PORTAL_RADIUS } from "../../utils/constants";
+import ContactIcons from "../ContactIcons";
+import Floor from "../Floor";
+import HomePortal from "../HomePortal";
+import AwayPortal from "../AwayPortal";
+import MultiCat from "../MultiCat";
+import {
+  GOLD_COLOR,
+  GOLD_EMISSIVE,
+  SUMMON_CIRCLE_RADIUS,
+} from "../../utils/constants";
+import useNeonMaterial from "../../utils/useNeonMaterial";
 
 function ContactPlatform({ position }: Partial<PlatformProps>) {
-  const catRef = useRef<Group>(null!)
-  const portalsRef = useRef<Group>(null!)
-  const activeSummon = useRef('')
-  const squareRef = useRef<Group>(null!)
-  const neonMaterial = useNeonMaterial()
+  const catRef = useRef<Group>(null!);
+  const portalsRef = useRef<Group>(null!);
+  const activeSummon = useRef("");
+  const squareRef = useRef<Group>(null!);
+  const neonMaterial = useNeonMaterial();
   const [fadeSprings, fadeApi] = useSpring(() => ({
     opacity: 0,
     config: config.molasses,
-  }))
+  }));
   const [spinSprings, spinApi] = useSpring(() => ({
     rotationZ: 0,
-  }))
+  }));
 
   const magicMaterial = useMemo(() => {
-    const mat = neonMaterial.clone()
-    mat.color = GOLD_COLOR
-    mat.emissive = GOLD_EMISSIVE
-    mat.depthWrite = false
-    mat.transparent = true
-    mat.side = DoubleSide
-    return mat
-  }, [neonMaterial])
+    const mat = neonMaterial.clone();
+    mat.color = GOLD_COLOR;
+    mat.emissive = GOLD_EMISSIVE;
+    mat.depthWrite = false;
+    mat.transparent = true;
+    mat.side = DoubleSide;
+    return mat;
+  }, [neonMaterial]);
 
-  const magicSquareLength = useMemo(() => Math.sqrt(Math.pow(SUMMON_CIRCLE_RADIUS, 2) / 2), [])
+  const magicSquareLength = useMemo(
+    () => Math.sqrt(Math.pow(SUMMON_CIRCLE_RADIUS, 2) / 2),
+    [],
+  );
 
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
   const [swirlySpring, swirlyApi] = useSpring(() => ({
     scale: 0,
-  }))
+  }));
   const [catSpring, catApi] = useSpring(() => ({
     positionZ: -20,
-  }))
+  }));
 
   const stopSummoning = useCallback(() => {
-    swirlyApi.stop()
+    swirlyApi.stop();
     swirlyApi.start({
       scale: 0,
       onRest() {
-        portalsRef.current.visible = false    
-        catRef.current.visible = false
+        portalsRef.current.visible = false;
+        catRef.current.visible = false;
       },
-    })
+    });
 
-    catRef.current.visible = false
-    catApi.stop()
+    catRef.current.visible = false;
+    catApi.stop();
     catApi.set({
-      positionZ: -20
-    })
+      positionZ: -20,
+    });
 
     fadeApi.start({
       opacity: 0,
       config: config.default,
-    })
-    spinApi.stop()
-  }, [])
+    });
+    spinApi.stop();
+  }, [catApi, fadeApi, spinApi, swirlyApi]);
+
+  const getActiveSummon = useCallback(() => activeSummon.current, []);
 
   const animateSummon = useCallback(() => {
-    const currentSummon = getActiveSummon()
+    const currentSummon = getActiveSummon();
 
     if (currentSummon) {
       swirlyApi.start({
         scale: 1,
         delay: 3500,
         onStart() {
-          portalsRef.current.visible = true
+          portalsRef.current.visible = true;
         },
-      })
+      });
 
       catApi.start({
         from: { positionZ: -20 },
@@ -90,18 +99,18 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
           easing: easings.linear,
         },
         onStart() {
-          catRef.current.visible = true
+          catRef.current.visible = true;
         },
         onRest: stopSummoning,
-      })
+      });
 
       fadeApi.start({
         from: { opacity: 0 },
         opacity: 1,
         delay: 1000,
         config: { duration: 2000 },
-      })
-      spinApi.stop()
+      });
+      spinApi.stop();
       spinApi.start({
         to: async (next) => {
           await next({
@@ -112,7 +121,7 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
               duration: 3000,
               easing: easings.easeInQuad,
             },
-          })
+          });
           await next({
             from: { rotationZ: 0 },
             rotationZ: 2 * Math.PI,
@@ -121,36 +130,33 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
               duration: 1600,
               easing: easings.linear,
             },
-          })
+          });
         },
-      })
+      });
     }
-  }, [])
+  }, [catApi, fadeApi, getActiveSummon, spinApi, stopSummoning, swirlyApi]);
 
-  const getActiveSummon = useCallback(() => activeSummon.current, [])
+  const setActiveSummon = useCallback(
+    (newSummon: string) => {
+      activeSummon.current = newSummon;
 
-  const setActiveSummon = useCallback((newSummon: string) => {
-    activeSummon.current = newSummon
-
-    if (newSummon) {
-      animateSummon()
-    } else {
-      stopSummoning()
-    }
-  }, [])
+      if (newSummon) {
+        animateSummon();
+      } else {
+        stopSummoning();
+      }
+    },
+    [animateSummon, stopSummoning],
+  );
 
   useEffect(() => {
-    swirlyApi.set({ scale: 0 })
-  }, [pathname, swirlyApi])
+    swirlyApi.set({ scale: 0 });
+  }, [pathname, swirlyApi]);
 
   return (
     <group position={position}>
       <group position-x={-2} position-y={7} rotation-y={Math.PI / 2}>
-        <group
-          ref={portalsRef}
-          position-y={PORTAL_RADIUS}
-          visible={false}
-        >
+        <group ref={portalsRef} position-y={PORTAL_RADIUS} visible={false}>
           <group position-z={-10}>
             <animated.group scale={swirlySpring.scale}>
               <HomePortal
@@ -161,9 +167,7 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
             </animated.group>
             <mesh position-z={-5.9} rotation-x={Math.PI / 2}>
               <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
-              <meshStandardMaterial
-                colorWrite={false}
-              />
+              <meshStandardMaterial colorWrite={false} />
             </mesh>
           </group>
           <group position-z={20}>
@@ -177,9 +181,7 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
             </animated.group>
             <mesh position-z={6} rotation-x={Math.PI / 2}>
               <cylinderGeometry args={[6, 6, 12, 32, 1, true]} />
-              <meshStandardMaterial
-                colorWrite={false}
-              />
+              <meshStandardMaterial colorWrite={false} />
             </mesh>
           </group>
         </group>
@@ -204,16 +206,38 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
         rotation-z={spinSprings.rotationZ}
       >
         <group ref={squareRef}>
-          <animated.mesh receiveShadow={false} material={magicMaterial} material-opacity={fadeSprings.opacity} position-x={magicSquareLength}>
+          <animated.mesh
+            receiveShadow={false}
+            material={magicMaterial}
+            material-opacity={fadeSprings.opacity}
+            position-x={magicSquareLength}
+          >
             <cylinderGeometry args={[0.02, 0.02, magicSquareLength * 2]} />
           </animated.mesh>
-          <animated.mesh receiveShadow={false} material={magicMaterial} material-opacity={fadeSprings.opacity} position-x={-magicSquareLength}>
+          <animated.mesh
+            receiveShadow={false}
+            material={magicMaterial}
+            material-opacity={fadeSprings.opacity}
+            position-x={-magicSquareLength}
+          >
             <cylinderGeometry args={[0.02, 0.02, magicSquareLength * 2]} />
           </animated.mesh>
-          <animated.mesh receiveShadow={false} material={magicMaterial} material-opacity={fadeSprings.opacity} rotation-z={Math.PI / 2} position-y={magicSquareLength}>
+          <animated.mesh
+            receiveShadow={false}
+            material={magicMaterial}
+            material-opacity={fadeSprings.opacity}
+            rotation-z={Math.PI / 2}
+            position-y={magicSquareLength}
+          >
             <cylinderGeometry args={[0.02, 0.02, magicSquareLength * 2]} />
           </animated.mesh>
-          <animated.mesh receiveShadow={false} material={magicMaterial} material-opacity={fadeSprings.opacity} rotation-z={Math.PI / 2} position-y={-magicSquareLength}>
+          <animated.mesh
+            receiveShadow={false}
+            material={magicMaterial}
+            material-opacity={fadeSprings.opacity}
+            rotation-z={Math.PI / 2}
+            position-y={-magicSquareLength}
+          >
             <cylinderGeometry args={[0.02, 0.02, magicSquareLength * 2]} />
           </animated.mesh>
         </group>
@@ -226,7 +250,7 @@ function ContactPlatform({ position }: Partial<PlatformProps>) {
       </animated.group>
       <Floor />
     </group>
-  )
+  );
 }
 
-export default ContactPlatform
+export default ContactPlatform;

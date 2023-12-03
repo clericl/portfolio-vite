@@ -15,10 +15,7 @@
   "clearcoatRoughness": 0,
   "iridescence": 0,
   "iridescenceIOR": 1.3,
-  "iridescenceThicknessRange": [
-    100,
-    400
-  ],
+  "iridescenceThicknessRange": [100, 400],
   "envMapIntensity": 1,
   "reflectivity": 0.5,
   "transmission": 0,

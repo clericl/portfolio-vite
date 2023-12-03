@@ -1,8 +1,8 @@
-import Modal, { ModalController } from '../Modal'
-import Navigation from '../Navigation'
-import Scene from '../Scene'
+import Modal, { ModalController } from "../Modal";
+import Navigation from "../Navigation";
+import Scene from "../Scene";
 
-import './index.scss'
+import "./index.scss";
 
 function Layout() {
   return (
@@ -13,7 +13,7 @@ function Layout() {
         <Modal />
       </div>
     </ModalController>
-  )
+  );
 }
 
-export default Layout
+export default Layout;

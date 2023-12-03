@@ -1,44 +1,40 @@
-import { useCallback, useContext, useRef } from 'react'
-import { Center, MeshTransmissionMaterial, Text3D } from '@react-three/drei'
-import { Group, Mesh } from 'three'
-import { GroupProps, useFrame } from '@react-three/fiber'
-import { ModalContext } from '../Modal'
+import { useCallback, useContext, useRef } from "react";
+import { Center, MeshTransmissionMaterial, Text3D } from "@react-three/drei";
+import { Group, Mesh } from "three";
+import { GroupProps, useFrame } from "@react-three/fiber";
+import { ModalContext } from "../Modal";
 
 const DATA: BubbleData = {
   about: {
-    title: 'ABOUT',
+    title: "ABOUT",
   },
   skills: {
-    title: 'SKILLS',
+    title: "SKILLS",
   },
   work: {
-    title: 'WORK',
+    title: "WORK",
   },
   contact: {
-    title: 'CONTACT',
+    title: "CONTACT",
   },
-}
+};
 
-function MobileBubble({ bubbleId = '', ...props }: MobileBubbleProps) {
-  const { openModal } = useContext(ModalContext)
-  const groupRef = useRef<Group>(null!)
-  const innerRef = useRef<Mesh>(null!)
-  const rand = useRef<number>(Math.random() + 0.5)
+function MobileBubble({ bubbleId = "", ...props }: MobileBubbleProps) {
+  const { openModal } = useContext(ModalContext);
+  const groupRef = useRef<Group>(null!);
+  const innerRef = useRef<Mesh>(null!);
+  const rand = useRef<number>(Math.random() + 0.5);
 
   const handleClick = useCallback(() => {
-    openModal(bubbleId)
-  }, [bubbleId, openModal])
+    openModal(bubbleId);
+  }, [bubbleId, openModal]);
 
   useFrame(({ clock }) => {
-    innerRef.current.position.y = Math.sin(clock.elapsedTime * rand.current)
-  })
+    innerRef.current.position.y = Math.sin(clock.elapsedTime * rand.current);
+  });
 
   return (
-    <group
-      onClick={handleClick}
-      ref={groupRef}
-      {...props}
-    >
+    <group onClick={handleClick} ref={groupRef} {...props}>
       <mesh ref={innerRef}>
         <sphereGeometry args={[8, 64]} />
         <MeshTransmissionMaterial
@@ -67,17 +63,17 @@ function MobileBubble({ bubbleId = '', ...props }: MobileBubbleProps) {
         </mesh>
       </mesh>
     </group>
-  )
+  );
 }
 
 interface MobileBubbleProps extends GroupProps {
-  bubbleId?: string
+  bubbleId?: string;
 }
 
 type BubbleData = {
   [key: string]: {
-    title: string,
-  }
-}
+    title: string;
+  };
+};
 
-export default MobileBubble
+export default MobileBubble;

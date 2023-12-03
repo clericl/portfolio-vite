@@ -1,11 +1,11 @@
-@forward './includeMedia.scss';
+@forward "./includeMedia.scss";
 @font-face {
-  font-family: 'Hubballi';
-  src: url('../assets/fonts/Hubballi-Regular.ttf');
+  font-family: "Hubballi";
+  src: url("../assets/fonts/Hubballi-Regular.ttf");
 }
 @font-face {
-  font-family: 'Source Code Pro Regular';
-  src: url('../assets/fonts/SourceCodePro-Regular.ttf');
+  font-family: "Source Code Pro Regular";
+  src: url("../assets/fonts/SourceCodePro-Regular.ttf");
 }
 
 $break-xs: "<376px";
@@ -15,8 +15,8 @@ $break-lg: ">1024px";
 
 $color-white: white;
 
-$typeface-primary: 'Hubballi', serif;
-$typeface-secondary: 'Source Code Pro Regular', sans-serif;
+$typeface-primary: "Hubballi", serif;
+$typeface-secondary: "Source Code Pro Regular", sans-serif;
 
 $border-radius: 5px;
 

@@ -1,6 +1,7 @@
-@use './constants.scss' as *;
+@use "./constants.scss" as *;
 
-html, body {
+html,
+body {
   font-family: $typeface-primary;
   background-color: $color-white;
   height: 100%;

@@ -1,4 +1,4 @@
-@use '../../styles/constants.scss' as *;
+@use "../../styles/constants.scss" as *;
 
 .loader {
   @include flex;
@@ -14,11 +14,12 @@
   transform: translate(-50%, -50%);
   font-family: $typeface-secondary;
 
-  .loader-title, .loader-subtitle {
+  .loader-title,
+  .loader-subtitle {
     font-family: $typeface-primary;
     text-transform: uppercase;
   }
-  
+
   .loader-title {
     font-size: 6rem;
     margin-bottom: 1rem;
