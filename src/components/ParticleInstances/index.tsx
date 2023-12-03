@@ -58,11 +58,11 @@ function ParticleInstances({
   const renderedInstances = useMemo(
     () =>
       modelData.map(({ nodeName }, index) => (
-        // @ts-expect-error three types
         <Instances
           key={nodeName}
           castShadow
           material={materials[index]}
+          // @ts-expect-error three types
           geometry={gltfs[index].nodes[nodeName].geometry}
         >
           {instanceData[index].map((props, i) => (

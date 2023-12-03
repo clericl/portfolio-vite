@@ -43,6 +43,7 @@ function TexturePortal({
 
     if (texturePath) {
       new TextureLoader().load(texturePath, (loadedTex) => {
+        // @ts-expect-error three types
         if (iconRef.current) iconRef.current.material.map = loadedTex;
       });
     }
