@@ -52,8 +52,8 @@ function Frame({ name, url, index }: FrameProps) {
   return (
     <group
       scale={5}
-      position-x={index * 4.7 - 9}
-      rotation-y={Math.PI / (index + 2.7)}
+      position-x={index * 3.5 - 9}
+      rotation-y={Math.PI / 4}
       onClick={() => openModal(name)}
       onPointerOver={() => setHover(true)}
       onPointerOut={() => setHover(false)}

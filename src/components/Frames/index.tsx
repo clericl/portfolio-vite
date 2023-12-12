@@ -6,6 +6,7 @@ import moethennessy from "../../assets/projects/moethennessy.jpg";
 import rosewrapped from "../../assets/projects/rosewrapped.jpg";
 import kennethcole from "../../assets/projects/kennethcole.jpg";
 import arbor from "../../assets/projects/arbor.jpg";
+import treeline from "../../assets/projects/treeline.jpg";
 
 const IMAGES = [
   {
@@ -23,6 +24,10 @@ const IMAGES = [
   {
     image: arbor,
     name: "arbor",
+  },
+  {
+    image: treeline,
+    name: "treeline",
   },
 ];
 

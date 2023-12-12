@@ -16,6 +16,7 @@ import moethennessy from "../../assets/projects/moethennessy.mp4";
 import rosewrapped from "../../assets/projects/rosewrapped.mp4";
 import kennethcole from "../../assets/projects/kennethcole.mp4";
 import arbor from "../../assets/projects/arbor.mp4";
+import treeline from "../../assets/projects/treeline.mp4";
 
 import email from "../../assets/contact/email.png";
 import github from "../../assets/contact/github.png";
@@ -176,6 +177,20 @@ function Modal() {
               />
               <p className="modal-link">Arbor</p>
             </div>
+            <div
+              className="modal-link-over-banner"
+              onClick={() => openModal("treeline")}
+            >
+              <video
+                className="modal-banner"
+                src={treeline}
+                autoPlay={false}
+                playsInline
+                muted
+                style={{ objectPosition: "left 25%" }}
+              />
+              <p className="modal-link">Treeline NYC</p>
+            </div>
           </div>,
         ],
       },
@@ -310,6 +325,34 @@ function Modal() {
               Try it{" "}
               <a
                 href="https://arbor.ericliang.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                here
+              </a>
+              .
+            </p>
+          </div>,
+        ],
+      },
+      treeline: {
+        title: "Treeline NYC",
+        video: treeline,
+        text: [
+          <div key={1} className="body">
+            <p className="modal-text">
+              New York City currently boasts over 900,000 trees planted in its streets, parks,
+              and other public places, with representatives from almost 600 different species
+              and cultivars. I used data published by the Department of Parks and Recreation
+              to build this project, which maps each one of these trees. Treeline NYC is made
+              for all sorts of nature enthusiasts, amateur arborists, and people who are simply
+              curious about a different face of this great city to learn about and explore the
+              jungle that thrives amid the concrete.
+            </p>
+            <p className="modal-text">
+              Try it{" "}
+              <a
+                href="https://treeline.ericliang.dev"
                 target="_blank"
                 rel="noopener noreferrer"
               >
